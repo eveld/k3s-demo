@@ -1,0 +1,58 @@
+slug: k3s-demo
+id: u3cxfe1z4m2y
+version: 0.0.1
+type: track
+title: k3s-demo
+teaser: k3s
+description: k3s
+icon: ""
+tags:
+- ""
+owner: hashicorp
+developers:
+- eveld@hashicorp.com
+private: false
+published: true
+challenges:
+- slug: k3s
+  id: 6lols1mmmwfh
+  type: challenge
+  title: k3s
+  teaser: k3s
+  assignment: |-
+    ```
+    helm install -f guide/consul-values.yaml --name consul ./consul-helm
+    ```
+    ```
+    helm install -f guide/prometheus-values.yaml --name prometheus stable/prometheus
+    helm install -f guide/grafana-values.yaml --name grafana stable/grafana
+    ```
+
+    Add `"consul.hashicorp.com/connect-inject": "true"` to the annotations of each deployment.
+    ```
+    kubectl apply -f guide/app
+    ```
+
+    ```
+    kubectl apply -f guide/traffic.yml
+    ```
+  tabs:
+  - title: Consul UI
+    type: service
+    hostname: kubernetes
+    path: /ui/
+    port: 30085
+  - title: Grafana
+    type: service
+    hostname: kubernetes
+    port: 30030
+  - title: Emojify
+    type: service
+    hostname: kubernetes
+    port: 30000
+  - title: Shell
+    type: terminal
+    hostname: kubernetes
+  difficulty: basic
+  timelimit: 5000
+checksum: "1679302663618782516"
