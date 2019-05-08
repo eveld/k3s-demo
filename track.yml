@@ -1,11 +1,34 @@
-slug: k3s-demo
+slug: consul-k8s-l7-observability
 id: u3cxfe1z4m2y
-version: 0.0.1
 type: track
-title: k3s-demo
-teaser: k3s
-description: k3s
-icon: ""
+title: Layer 7 Observability with Kubernetes, Prometheus, Grafana
+teaser: Collect and visualize layer 7 metrics from services in your Kubernetes cluster   using
+  Consul  Connect, Prometheus, and Grafana.
+description: |-
+  A service mesh is made up of proxies deployed locally alongside each service
+  instance, which control network traffic between their local instance and other
+  services on the network. These proxies "see" all the traffic that runs through
+  them, and in addition to securing that traffic, they can also collect data about
+  it. Starting with version 1.5, Consul Connect is able to configure Envoy proxies
+  to collect layer 7 metrics including HTTP status codes, request latency, along
+  with many others, and export those to monitoring tools like Prometheus.
+
+  In this guide, you will deploy a basic metrics collection and visualization
+  pipeline on a Kubernetes cluster using the official Helm charts for Consul,
+  Prometheus, and Grafana. This pipeline will collect and display metrics from a
+  demo application.
+
+  > **Tip:** While this guide shows you how to deploy a metrics pipeline on
+  Kubernetes, all the technologies the guide uses are platform agnostic;
+  Kubernetes is not necessary to collect and visualize layer 7 metrics with Consul
+  Connect.
+
+  **Learning Objectives:**
+  - Configure Consul Connect with metrics using Helm
+  - Install Prometheus and Grafana using Helm
+  - Install and start the demo application
+  - Collect metrics
+icon: https://storage.googleapis.com/instruqt-frontend/assets/hashicorp/tracks/consul.png
 tags:
 - ""
 owner: hashicorp
@@ -14,28 +37,43 @@ developers:
 private: false
 published: true
 challenges:
-- slug: k3s
+- slug: lab
   id: 6lols1mmmwfh
   type: challenge
-  title: k3s
-  teaser: k3s
+  title: Lab
+  teaser: Follow the guide at https://learn.hashicorp.com and try it out yourself
+    in this hands-on lab.
   assignment: |-
+    Install Consul.
     ```
     helm install -f guide/consul-values.yaml --name consul ./consul-helm
     ```
+
+    Install Prometheus.
     ```
     helm install -f guide/prometheus-values.yaml --name prometheus stable/prometheus
+    ```
+
+    Install Grafana.
+    ```
     helm install -f guide/grafana-values.yaml --name grafana stable/grafana
     ```
 
-    Add `"consul.hashicorp.com/connect-inject": "true"` to the annotations of each deployment.
+    Edit the `guide/app/website.yml` file and move the annotations from the deployment metadata to the template metadata (This will not be necessary once the PR is merged).
+
+    Install Emojify application.
     ```
     kubectl apply -f guide/app
     ```
 
+    Start load test.
     ```
-    kubectl apply -f guide/traffic.yml
+    kubectl apply -f guide/traffic.yaml
     ```
+  notes:
+  - type: text
+    contents: Please wait while we create your **sandboxed environment**. This can
+      take up to **a minute** to complete.
   tabs:
   - title: Consul UI
     type: service
@@ -54,5 +92,5 @@ challenges:
     type: terminal
     hostname: kubernetes
   difficulty: basic
-  timelimit: 5000
-checksum: "1679302663618782516"
+  timelimit: 3600
+checksum: "13703806375577319277"
