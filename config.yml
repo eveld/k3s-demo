@@ -3,4 +3,4 @@ virtualmachines:
 - name: kubernetes
   image: instruqt-hashicorp/k3s-consul
   shell: /bin/bash
-  machine_type: n1-standard-1
+  machine_type: n1-standard-2
